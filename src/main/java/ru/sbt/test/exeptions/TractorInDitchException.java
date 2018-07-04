@@ -1,4 +1,4 @@
-package ru.sbt.test.refactoring;
+package ru.sbt.test.exeptions;
 
 public class TractorInDitchException extends RuntimeException {
 

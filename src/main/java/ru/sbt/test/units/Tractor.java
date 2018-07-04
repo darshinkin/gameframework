@@ -1,11 +1,11 @@
 package ru.sbt.test.units;
 
-import ru.sbt.test.Coordinates;
-import ru.sbt.test.refactoring.Orientation;
-import ru.sbt.test.units.state.Location;
+import ru.sbt.test.units.state.Coordinates;
+import ru.sbt.test.units.state.Orientation;
+import ru.sbt.test.units.state.Moving;
 import ru.sbt.test.units.state.Turning;
 
-public class Tractor implements Location, Turning {
+public class Tractor implements Moving, Turning {
 
     private Orientation orientation;
     private Coordinates coordinates;

@@ -1,25 +1,24 @@
 package ru.sbt.test.commands;
 
-import ru.sbt.test.Coordinates;
-import ru.sbt.test.refactoring.Orientation;
-import ru.sbt.test.refactoring.TractorInDitchException;
-import ru.sbt.test.units.state.Location;
+import ru.sbt.test.units.state.Coordinates;
+import ru.sbt.test.units.state.Orientation;
+import ru.sbt.test.exeptions.TractorInDitchException;
+import ru.sbt.test.units.state.Moving;
 import ru.sbt.test.units.state.Turning;
-import ru.sbt.test.units.state.Unit;
 
 public class MoveForwardsCommand extends BaseCommand {
 
     //todo should be inicialized during of the luanching programm
     private static Coordinates field = new Coordinates(5, 5);
 
-    public MoveForwardsCommand(Unit unit) {
+    public MoveForwardsCommand(Moving unit) {
         super(unit);
     }
 
     @Override
     public void execute() {
         Orientation currentOrientation = ((Turning) unit).getOrientation();
-        Location unit = (Location) this.unit;
+        Moving unit = (Moving) this.unit;
         Coordinates coordinates = unit.getCoordinates();
         switch (currentOrientation) {
             case EAST:

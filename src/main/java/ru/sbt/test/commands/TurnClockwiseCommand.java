@@ -1,23 +1,21 @@
 package ru.sbt.test.commands;
 
-import ru.sbt.test.refactoring.Orientation;
+import ru.sbt.test.units.state.Orientation;
 import ru.sbt.test.units.state.Turning;
 
-import static ru.sbt.test.refactoring.Orientation.EAST;
-import static ru.sbt.test.refactoring.Orientation.NORTH;
-import static ru.sbt.test.refactoring.Orientation.SOUTH;
-import static ru.sbt.test.refactoring.Orientation.WEST;
+import static ru.sbt.test.units.state.Orientation.EAST;
+import static ru.sbt.test.units.state.Orientation.NORTH;
+import static ru.sbt.test.units.state.Orientation.SOUTH;
+import static ru.sbt.test.units.state.Orientation.WEST;
 
-public class TurnClockwiseCommand implements Command {
-
-    private Turning unit;
+public class TurnClockwiseCommand extends BaseCommand {
 
     public TurnClockwiseCommand(Turning unit) {
-        this.unit = unit;
+        super(unit);
     }
 
     public void execute() {
-        Orientation currentOrientation = unit.getOrientation();
+        Orientation currentOrientation = ((Turning) unit).getOrientation();
         switch (currentOrientation) {
             case EAST:
                 currentOrientation = SOUTH;
@@ -31,6 +29,6 @@ public class TurnClockwiseCommand implements Command {
             case NORTH:
                 currentOrientation = EAST;
         }
-        unit.setOrientation(currentOrientation);
+        ((Turning) unit).setOrientation(currentOrientation);
     }
 }

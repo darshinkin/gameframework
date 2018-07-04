@@ -1,4 +1,4 @@
-package ru.sbt.test;
+package ru.sbt.test.units.state;
 
 public class Coordinates {
     private int x;

@@ -3,22 +3,24 @@ package ru.sbt.test.commands;
 import ru.sbt.test.Coordinates;
 import ru.sbt.test.refactoring.Orientation;
 import ru.sbt.test.refactoring.TractorInDitchException;
-import ru.sbt.test.state.State;
-import ru.sbt.test.units.Unit;
+import ru.sbt.test.units.state.Location;
+import ru.sbt.test.units.state.Turning;
+import ru.sbt.test.units.state.Unit;
 
 public class MoveForwardsCommand extends BaseCommand {
-    private Coordinates field;
 
-    public MoveForwardsCommand(Unit unit, Coordinates coordinates) {
+    //todo should be inicialized during of the luanching programm
+    private static Coordinates field = new Coordinates(5, 5);
+
+    public MoveForwardsCommand(Unit unit) {
         super(unit);
-        this.field = coordinates;
     }
 
     @Override
     public void execute() {
-        State state = getUnit().retrieveState();
-        Orientation currentOrientation = state.getOrientation();
-        Coordinates coordinates = state.getLocation().getCoordinates();
+        Orientation currentOrientation = ((Turning) unit).getOrientation();
+        Location unit = (Location) this.unit;
+        Coordinates coordinates = unit.getCoordinates();
         switch (currentOrientation) {
             case EAST:
                 int newPosition = coordinates.getX() + 1;
@@ -48,6 +50,6 @@ public class MoveForwardsCommand extends BaseCommand {
                 }
                 coordinates = new Coordinates(coordinates.getX(), newPosition);
         }
-        state.getLocation().setCoordinates(coordinates);
+        unit.setCoordinates(coordinates);
     }
 }

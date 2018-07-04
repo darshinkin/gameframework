@@ -31,5 +31,6 @@ public class TurnClockwiseCommand extends BaseCommand {
             case NORTH:
                 currentOrientation = EAST;
         }
+        state.setOrientation(currentOrientation);
     }
 }

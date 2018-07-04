@@ -24,3 +24,7 @@
 hs_err_pid*
 
 .gitignore
+target/
+
+#Intellij Idea
+.idea/

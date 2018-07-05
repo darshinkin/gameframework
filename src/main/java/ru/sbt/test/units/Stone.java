@@ -1,8 +1,9 @@
 package ru.sbt.test.units;
 
 import ru.sbt.test.units.state.Coordinates;
+import ru.sbt.test.units.state.Unit;
 
-public class Stone {
+public class Stone implements Unit {
     private Coordinates coordinates;
 
     public Stone(Coordinates coordinates) {

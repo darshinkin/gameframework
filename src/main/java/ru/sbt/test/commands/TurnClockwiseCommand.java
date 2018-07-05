@@ -1,7 +1,11 @@
 package ru.sbt.test.commands;
 
+import ru.sbt.test.units.state.Moving;
 import ru.sbt.test.units.state.Orientation;
 import ru.sbt.test.units.state.Turning;
+import ru.sbt.test.units.state.Unit;
+
+import java.util.List;
 
 import static ru.sbt.test.units.state.Orientation.EAST;
 import static ru.sbt.test.units.state.Orientation.NORTH;
@@ -14,7 +18,15 @@ public class TurnClockwiseCommand extends BaseCommand {
         super(unit);
     }
 
+    public TurnClockwiseCommand(List<Unit> units) {
+        super(units);
+    }
+
     public void execute() {
+        executeUnit(this.unit);
+    }
+
+    private void executeUnit(Unit unit) {
         Orientation currentOrientation = ((Turning) unit).getOrientation();
         switch (currentOrientation) {
             case EAST:
@@ -30,5 +42,14 @@ public class TurnClockwiseCommand extends BaseCommand {
                 currentOrientation = EAST;
         }
         ((Turning) unit).setOrientation(currentOrientation);
+    }
+
+    @Override
+    public void executeBunch() {
+        for (Unit unit : units) {
+            if (unit instanceof Turning) {
+                executeUnit(unit);
+            }
+        }
     }
 }

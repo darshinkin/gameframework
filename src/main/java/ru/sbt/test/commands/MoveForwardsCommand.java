@@ -1,10 +1,9 @@
 package ru.sbt.test.commands;
 
-import ru.sbt.test.units.state.Coordinates;
-import ru.sbt.test.units.state.Orientation;
+import ru.sbt.test.units.state.*;
 import ru.sbt.test.exeptions.TractorInDitchException;
-import ru.sbt.test.units.state.Moving;
-import ru.sbt.test.units.state.Turning;
+
+import java.util.List;
 
 public class MoveForwardsCommand extends BaseCommand {
 
@@ -15,11 +14,18 @@ public class MoveForwardsCommand extends BaseCommand {
         super(unit);
     }
 
+    public MoveForwardsCommand(List<Unit> units) {
+        super(units);
+    }
+
     @Override
     public void execute() {
+        executUnit(this.unit);
+    }
+
+    private void executUnit(Unit unit) {
         Orientation currentOrientation = ((Turning) unit).getOrientation();
-        Moving unit = (Moving) this.unit;
-        Coordinates coordinates = unit.getCoordinates();
+        Coordinates coordinates = ((Moving) unit).getCoordinates();
         switch (currentOrientation) {
             case EAST:
                 int newPosition = coordinates.getX() + 1;
@@ -49,6 +55,15 @@ public class MoveForwardsCommand extends BaseCommand {
                 }
                 coordinates = new Coordinates(coordinates.getX(), newPosition);
         }
-        unit.setCoordinates(coordinates);
+        ((Moving) unit).setCoordinates(coordinates);
+    }
+
+    @Override
+    public void executeBunch() {
+        for (Unit unit : units) {
+            if (unit instanceof Moving && unit instanceof Turning) {
+                executUnit(unit);
+            }
+        }
     }
 }
